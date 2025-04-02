@@ -20,7 +20,7 @@ export default function AboutPage() {
           <section className="mb-16">
             <section className="flex flex-col md:flex-row gap-8 items-center">
             <section className="md:w-1/2">
-  <section className="relative w-full pb-[56.25%] rounded-lg overflow-hidden"> {/* 16:9 */}
+  <section className="relative w-full pb-[56.25%] rounded-lg overflow-hidden">
     <Image
       src="/spice_umami.png"
       alt="Equipo Spice & Umami"
@@ -94,7 +94,7 @@ export default function AboutPage() {
                 <ul className="text-neutral-300 space-y-1">
                   <li>
                     <Link href="https://www.api-ninjas.com/api/recipe" target="_blank" className="hover:text-amber-500">
-                      API Ninjas (Recetas)
+                      Spoonacular (Recetas)
                     </Link>
                   </li>
                   <li>

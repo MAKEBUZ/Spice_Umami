@@ -1,6 +1,5 @@
 "use client"
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -17,20 +16,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-neutral-900">
-      {/* Hero Section */}
       <section className="relative h-screen">
-        <div className="absolute inset-0">
-          <Image 
-            src="/hero-bg.jpg" 
-            alt="Spice & Umami hero background" 
-            fill
-            className="object-cover brightness-50"
-            priority
-          />
-        </div>
         
-        <div className="relative h-full flex flex-col items-center justify-center px-4 text-center">
-          <div className="max-w-4xl mx-auto">
+        <section className="relative h-full flex flex-col items-center justify-center px-4 text-center">
+          <section className="max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
               Spice <span className="text-amber-500">&</span> Umami
             </h1>
@@ -38,8 +27,7 @@ export default function Home() {
               Tu guía culinaria con información nutricional detallada
             </p>
             
-            {/* Updated Search Bar */}
-            <div className="w-full max-w-2xl mx-auto mb-8">
+            <section className="w-full max-w-2xl mx-auto mb-8">
               <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
                 <input
                   type="text"
@@ -65,9 +53,9 @@ export default function Home() {
                   ) : 'Buscar'}
                 </button>
               </form>
-            </div>
+            </section>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <section className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 href="/busca-recetas" 
                 className="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-md transition-colors duration-300 text-center"
@@ -80,53 +68,49 @@ export default function Home() {
               >
                 Información Nutricional
               </Link>
-            </div>
-          </div>
-        </div>
+            </section>
+          </section>
+        </section>
       </section>
 
-      {/* Features Section */}
       <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+        <section className="max-w-6xl mx-auto">
+          <section className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
               Descubre <span className="text-amber-500">Spice & Umami</span>
             </h2>
             <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
               Todo lo que necesitas para tus aventuras culinarias en un solo lugar
             </p>
-          </div>
+          </section>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature Card 1 */}
-            <div className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
-              <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <section className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
+              <section className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black">
                   <path d="m21 21-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" />
                 </svg>
-              </div>
+              </section>
               <h3 className="text-xl font-semibold mb-4 text-white text-center">Búsqueda Avanzada</h3>
               <p className="text-neutral-300 text-center">
                 Encuentra recetas por ingredientes, tipo de cocina o valor nutricional con nuestro potente buscador.
               </p>
-            </div>
+            </section>
             
-            {/* Feature Card 2 */}
-            <div className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
-              <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
+            <section className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
+              <section className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 </svg>
-              </div>
+              </section>
               <h3 className="text-xl font-semibold mb-4 text-white text-center">Información Detallada</h3>
               <p className="text-neutral-300 text-center">
                 Datos nutricionales precisos para cada ingrediente y receta, con desglose de macros y micronutrientes.
               </p>
-            </div>
+            </section>
             
-            {/* Feature Card 3 */}
-            <div className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
-              <div className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
+            <section className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
+              <section className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black">
                   <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
                   <path d="M8.5 8.5v.01" />
@@ -135,26 +119,25 @@ export default function Home() {
                   <path d="M11 17v.01" />
                   <path d="M7 14v.01" />
                 </svg>
-              </div>
+              </section>
               <h3 className="text-xl font-semibold mb-4 text-white text-center">Dietas Especiales</h3>
               <p className="text-neutral-300 text-center">
                 Filtra recetas por restricciones dietéticas como sin gluten, vegano, bajo en carbohidratos y más.
               </p>
-            </div>
-          </div>
-        </div>
+            </section>
+          </section>
+        </section>
       </section>
 
-      {/* CTA Section */}
       <section className="py-16 px-4 bg-neutral-800">
-        <div className="max-w-4xl mx-auto text-center">
+        <section className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
             ¿Listo para comenzar tu viaje culinario?
           </h2>
           <p className="text-lg text-neutral-300 mb-8 max-w-2xl mx-auto">
             Descubre miles de recetas con información nutricional completa y empieza a cocinar hoy mismo.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <section className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/busca-recetas" 
               className="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-md transition-colors duration-300"
@@ -167,8 +150,8 @@ export default function Home() {
             >
               Ver Nutrición
             </Link>
-          </div>
-        </div>
+          </section>
+        </section>
       </section>
     </main>
   );

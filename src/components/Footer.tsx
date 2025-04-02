@@ -4,35 +4,33 @@ import Image from 'next/image';
 const Footer = () => {
   return (
     <footer className="bg-neutral-950 pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Logo and About */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="relative w-10 h-10">
+      <section className="container mx-auto px-4">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <section>
+            <section className="flex items-center gap-2 mb-4">
+              <section className="relative w-10 h-10">
                 <Image 
                   src="/logo.png" 
                   alt="Spice & Umami Logo" 
                   fill
                   className="object-contain"
                 />
-              </div>
-              <div className="font-bold text-xl">
+              </section>
+              <section className="font-bold text-xl">
                 Spice <span className="text-amber-500">&</span> Umami
-              </div>
-            </div>
+              </section>
+            </section>
             <p className="text-gray-400 mb-4">
               Tu guía culinaria con recetas, nutrición y un asistente de IA. Descubre, cocina y disfruta.
             </p>
-            <div className="flex gap-4">
+            <section className="flex gap-4">
               <SocialIcon href="https://instagram.com" icon="instagram" />
               <SocialIcon href="https://facebook.com" icon="facebook" />
               <SocialIcon href="https://twitter.com" icon="twitter" />
-            </div>
-          </div>
+            </section>
+          </section>
 
-          {/* Links */}
-          <div>
+          <section>
             <h3 className="text-white font-semibold text-lg mb-4">Enlaces</h3>
             <ul className="space-y-2">
               <FooterLink href="/">Inicio</FooterLink>
@@ -41,10 +39,9 @@ const Footer = () => {
               <FooterLink href="/asistente">Asistente IA</FooterLink>
               <FooterLink href="/sobre-nosotros">Sobre Nosotros</FooterLink>
             </ul>
-          </div>
+          </section>
 
-          {/* APIs */}
-          <div>
+          <section>
             <h3 className="text-white font-semibold text-lg mb-4">Tecnologías</h3>
             <ul className="text-gray-400 space-y-2">
               <li className="flex items-start gap-3">
@@ -64,7 +61,7 @@ const Footer = () => {
                   <path d="M9.5 12h5"></path>
                   <path d="M9.5 7h5"></path>
                 </svg>
-                <span>API Ninjas (Recetas)</span>
+                <span>Spoonacular (Recetas)</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500 flex-shrink-0 mt-1">
@@ -94,10 +91,9 @@ const Footer = () => {
                 <span>Mistral IA (Asistente)</span>
               </li>
             </ul>
-          </div>
+          </section>
 
-          {/* Contact */}
-          <div>
+          <section>
             <h3 className="text-white font-semibold text-lg mb-4">Contacto</h3>
             <ul className="text-gray-400 space-y-2">
               <li className="flex items-start gap-3">
@@ -115,30 +111,29 @@ const Footer = () => {
                 <span>info@spiceandumami.com</span>
               </li>
             </ul>
-          </div>
-        </div>
+          </section>
+        </section>
 
-        <div className="border-t border-neutral-800 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+        <section className="border-t border-neutral-800 pt-8 mt-8">
+          <section className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 text-sm mb-4 md:mb-0">
               &copy; {new Date().getFullYear()} Spice & Umami. Todos los derechos reservados.
             </p>
-            <div className="flex gap-4 text-gray-500 text-sm">
+            <section className="flex gap-4 text-gray-500 text-sm">
               <Link href="/privacidad" className="hover:text-amber-500 transition-colors duration-300">
                 Política de Privacidad
               </Link>
               <Link href="/terminos" className="hover:text-amber-500 transition-colors duration-300">
                 Términos y Condiciones
               </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+            </section>
+          </section>
+        </section>
+      </section>
     </footer>
   );
 };
 
-// Helper Components (los mismos que antes)
 const SocialIcon = ({ href, icon }: { href: string; icon: string }) => (
   <a 
     href={href} 
@@ -146,7 +141,7 @@ const SocialIcon = ({ href, icon }: { href: string; icon: string }) => (
     rel="noopener noreferrer"
     className="text-gray-400 hover:text-amber-500 transition-colors duration-300"
   >
-    <div className="w-6 h-6">
+    <section className="w-6 h-6">
       {icon === 'instagram' && (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
@@ -164,7 +159,7 @@ const SocialIcon = ({ href, icon }: { href: string; icon: string }) => (
           <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
         </svg>
       )}
-    </div>
+    </section>
   </a>
 );
 
