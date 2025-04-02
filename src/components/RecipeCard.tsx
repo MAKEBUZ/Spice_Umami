@@ -1,8 +1,7 @@
-// components/RecipeCard.tsx
 import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Users, Heart } from 'lucide-react';
-import { Recipe, parseIngredients } from '../services/api-recipes';
+import { Recipe } from '../services/api-recipes';
 import { useState } from 'react';
 
 interface RecipeCardProps {
@@ -10,25 +9,8 @@ interface RecipeCardProps {
 }
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
-  const ingredients = parseIngredients(recipe.ingredients);
   const [isFavorite, setIsFavorite] = useState(false);
   const [imageError, setImageError] = useState(false);
-
-  // Función para estimar el tiempo de preparación basado en ingredientes e instrucciones
-  const estimatePrepTime = () => {
-    const instructionSteps = recipe.instructions.split('\n').length;
-    const ingredientCount = ingredients.length;
-    
-    // Estimación básica: 5 min por paso de instrucción + 1 min por ingrediente
-    const totalMinutes = Math.min(Math.max(
-      (instructionSteps * 5) + (ingredientCount * 1),
-      10), 120 // Límites mínimo y máximo
-    );
-    
-    return `${totalMinutes} min`;
-  };
-
-  const prepTime = estimatePrepTime();
 
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -38,20 +20,20 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
 
   return (
     <Link 
-      href={`/receta/${encodeURIComponent(recipe.title)}`}
+      href={`/receta/${recipe.id}`}
       className="group block h-full"
       aria-label={`Ver receta de ${recipe.title}`}
     >
-      <div className="bg-neutral-800 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col border border-neutral-700 group-hover:border-amber-500">
+      <section className="bg-neutral-800 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col border border-neutral-700 group-hover:border-amber-500">
         {/* Imagen con fallback */}
-        <div className="relative h-48 w-full">
+        <section className="relative h-48 w-full">
           {imageError ? (
-            <div className="absolute inset-0 bg-neutral-700 flex items-center justify-center">
+            <section className="absolute inset-0 bg-neutral-700 flex items-center justify-center">
               <span className="text-neutral-400 text-sm">Imagen no disponible</span>
-            </div>
+            </section>
           ) : (
             <Image
-              src={recipe.imageUrl || '/placeholder-recipe.jpg'}
+              src={recipe.image || '/placeholder-recipe.jpg'}
               alt={recipe.title}
               fill
               className="object-cover"
@@ -72,54 +54,56 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
               className={isFavorite ? "fill-amber-500 text-amber-500" : "text-white"} 
             />
           </button>
-        </div>
+        </section>
         
         {/* Contenido de la tarjeta */}
-        <div className="p-6 flex flex-col flex-grow">
+        <section className="p-6 flex flex-col flex-grow">
           <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-amber-400 transition-colors duration-200">
             {recipe.title}
           </h3>
           
           {/* Metadatos */}
-          <div className="flex items-center gap-4 mb-4 text-sm text-neutral-400">
-            <div className="flex items-center gap-1">
+          <section className="flex items-center gap-4 mb-4 text-sm text-neutral-400">
+            <section className="flex items-center gap-1">
               <Users size={16} className="text-amber-400" />
-              <span>{recipe.servings}</span>
-            </div>
-            <div className="flex items-center gap-1">
+              <span>{recipe.servings} porciones</span>
+            </section>
+            <section className="flex items-center gap-1">
               <Clock size={16} className="text-amber-400" />
-              <span>{prepTime}</span>
-            </div>
-          </div>
+              <span>{recipe.readyInMinutes} min</span>
+            </section>
+          </section>
           
           {/* Ingredientes */}
-          <div className="mb-4 flex-grow">
-            <p className="text-neutral-300 mb-1 text-sm font-medium">
-              {ingredients.length} ingredientes principales:
-            </p>
-            <ul className="text-neutral-400 text-sm space-y-1">
-              {ingredients.slice(0, 3).map((ingredient, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="text-amber-400 mr-1">•</span>
-                  <span className="line-clamp-1">{ingredient}</span>
-                </li>
-              ))}
-              {ingredients.length > 3 && (
-                <li className="text-neutral-500 text-xs">
-                  +{ingredients.length - 3} ingredientes más...
-                </li>
-              )}
-            </ul>
-          </div>
+          {recipe.extendedIngredients && (
+            <section className="mb-4 flex-grow">
+              <p className="text-neutral-300 mb-1 text-sm font-medium">
+                {recipe.extendedIngredients.length} ingredientes principales:
+              </p>
+              <ul className="text-neutral-400 text-sm space-y-1">
+                {recipe.extendedIngredients.slice(0, 3).map((ingredient, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-amber-400 mr-1">•</span>
+                    <span className="line-clamp-1">{ingredient.original}</span>
+                  </li>
+                ))}
+                {recipe.extendedIngredients.length > 3 && (
+                  <li className="text-neutral-500 text-xs">
+                    +{recipe.extendedIngredients.length - 3} ingredientes más...
+                  </li>
+                )}
+              </ul>
+            </section>
+          )}
           
           {/* Botón de acción */}
-          <div className="mt-auto">
-            <div className="inline-block w-full px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-md transition-colors duration-300 text-center group-hover:shadow-lg group-hover:-translate-y-0.5">
+          <section className="mt-auto">
+            <section className="inline-block w-full px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-md transition-colors duration-300 text-center group-hover:shadow-lg group-hover:-translate-y-0.5">
               Ver Receta
-            </div>
-          </div>
-        </div>
-      </div>
+            </section>
+          </section>
+        </section>
+      </section>
     </Link>
   );
 };

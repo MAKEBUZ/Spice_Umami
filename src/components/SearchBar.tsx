@@ -35,7 +35,7 @@ const SearchBar = ({ onSearch, placeholder, initialValue = '' }: SearchBarProps)
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
-      <div className="relative">
+      <section className="relative">
         <input
           type="text"
           value={query}
@@ -58,7 +58,7 @@ const SearchBar = ({ onSearch, placeholder, initialValue = '' }: SearchBarProps)
         >
           {isTyping ? 'Buscar ahora' : 'Buscar'}
         </button>
-      </div>
+      </section>
     </form>
   );
 };

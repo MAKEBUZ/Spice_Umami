@@ -30,15 +30,15 @@ const Navbar = () => {
 
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-neutral-900/95 py-3 shadow-lg' : 'bg-transparent py-6'}`}>
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between">
+      <section className="container mx-auto px-4">
+        <section className="flex items-center justify-between">
           <Link href="/" className="relative z-10 flex items-center gap-2">
-            <div className="relative w-10 h-10">
+            <section className="relative w-10 h-10">
               <Image src="/logo.png" alt="Spice & Umami Logo" fill className="object-contain"/>
-            </div>
-            <div className="font-bold text-xl md:text-2xl">
+            </section>
+            <section className="font-bold text-xl md:text-2xl">
               Spice <span className="text-amber-500">&</span> Umami
-            </div>
+            </section>
           </Link>
 
           {/* Desktop Navigation */}
@@ -54,15 +54,15 @@ const Navbar = () => {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle Menu"
           >
-            <div className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-            <div className={`w-6 h-0.5 bg-white mb-1.5 transition-opacity ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></div>
-            <div className={`w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+            <section className={`w-6 h-0.5 bg-white mb-1.5 transition-all ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></section>
+            <section className={`w-6 h-0.5 bg-white mb-1.5 transition-opacity ${isMobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></section>
+            <section className={`w-6 h-0.5 bg-white transition-all ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></section>
           </button>
-        </div>
-      </div>
+        </section>
+      </section>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-neutral-900 transition-all duration-300 flex flex-col items-center justify-center ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+      <section className={`fixed inset-0 bg-neutral-900 transition-all duration-300 flex flex-col items-center justify-center ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
         <nav className="flex flex-col items-center gap-6 text-xl">
           {NAV_ITEMS.map((item) => (
             <MobileNavLink 
@@ -75,12 +75,12 @@ const Navbar = () => {
           ))}
         </nav>
 
-        <div className="absolute bottom-8 flex gap-6">
+        <section className="absolute bottom-8 flex gap-6">
           {SOCIAL_LINKS.map((social) => (
             <SocialIcon key={social.href} href={social.href} icon={social.icon} />
           ))}
-        </div>
-      </div>
+        </section>
+      </section>
     </header>
   );
 };
@@ -128,9 +128,9 @@ const SocialIcon = ({ href, icon }: { href: string; icon: string }) => {
 
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className="text-white hover:text-amber-500 transition-colors duration-300">
-      <div className="w-6 h-6">
+      <section className="w-6 h-6">
         <Icon />
-      </div>
+      </section>
     </a>
   );
 };

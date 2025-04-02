@@ -1,12 +1,44 @@
-const API_KEY = 'CWlNZqEQs49PAhwobfQSwHLnQlPrQvD04CnGxvRp';
-const BASE_URL = 'https://api.api-ninjas.com/v1';
+const API_KEY = 'xRmJ2Nu7Zf3cL5ado2RyGAXVBsYRB7YR';
+const BASE_URL = 'https://api.apilayer.com/spoonacular';
 
 export interface Recipe {
+  id: number;
   title: string;
-  ingredients: string;
-  servings: string;
-  instructions: string;
-  imageUrl?: string;
+  image: string;
+  imageType?: string;
+  servings?: number;
+  readyInMinutes?: number;
+  sourceUrl?: string;
+  summary?: string;
+  analyzedInstructions?: {
+    name: string;
+    steps: {
+      number: number;
+      step: string;
+      ingredients: {
+        id: number;
+        name: string;
+        localizedName: string;
+        image: string;
+      }[];
+      equipment: {
+        id: number;
+        name: string;
+        localizedName: string;
+        image: string;
+      }[];
+    }[];
+  }[];
+  extendedIngredients?: {
+    id: number;
+    name: string;
+    original: string;
+    amount: number;
+    unit: string;
+  }[];
+  instructions?: string;
+  diets?: string[];
+  dishTypes?: string[];
 }
 
 export async function searchRecipes(query: string): Promise<Recipe[]> {
@@ -16,18 +48,19 @@ export async function searchRecipes(query: string): Promise<Recipe[]> {
       throw new Error('La búsqueda debe tener al menos 2 caracteres');
     }
 
-    const translatedQuery = translateToEnglish(query);
-    
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-    const response = await fetch(`${BASE_URL}/recipe?query=${encodeURIComponent(translatedQuery)}`, {
-      headers: {
-        'X-Api-Key': API_KEY,
-        'Content-Type': 'application/json',
-      },
-      signal: controller.signal
-    });
+    const response = await fetch(
+      `${BASE_URL}/recipes/complexSearch?query=${encodeURIComponent(query)}&number=10&addRecipeInformation=true`,
+      {
+        headers: {
+          'apikey': API_KEY,
+          'Content-Type': 'application/json',
+        },
+        signal: controller.signal
+      }
+    );
 
     clearTimeout(timeoutId);
 
@@ -38,11 +71,21 @@ export async function searchRecipes(query: string): Promise<Recipe[]> {
 
     const result = await response.json();
     
-    if (!Array.isArray(result)) {
+    if (!result.results || !Array.isArray(result.results)) {
       throw new Error('Formato de respuesta inesperado');
     }
 
-    return translateRecipesToSpanish(result);
+    return result.results.map((recipe: any) => ({
+      id: recipe.id,
+      title: recipe.title,
+      image: recipe.image,
+      imageType: recipe.imageType,
+      servings: recipe.servings,
+      readyInMinutes: recipe.readyInMinutes,
+      summary: recipe.summary,
+      instructions: recipe.instructions,
+      extendedIngredients: recipe.extendedIngredients
+    }));
 
   } catch (error) {
     console.error('Error en searchRecipes:', error);
@@ -61,119 +104,75 @@ export async function searchRecipes(query: string): Promise<Recipe[]> {
   }
 }
 
-function translateToEnglish(spanishTerm: string): string {
-  const translations: Record<string, string> = {
-    'pollo': 'chicken',
-    'carne': 'beef',
-    'pescado': 'fish',
-    'ensalada': 'salad',
-    'sopa': 'soup',
-    'pasta': 'pasta',
-    'arroz': 'rice',
-    'postre': 'dessert',
-    'huevo': 'egg'
-  };
+export async function getRecipeDetails(id: number): Promise<Recipe> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
-  return spanishTerm.split(' ')
-    .map(word => translations[word.toLowerCase()] || word)
-    .join(' ');
-}
+    const response = await fetch(
+      `${BASE_URL}/recipes/${id}/information?includeNutrition=false`,
+      {
+        headers: {
+          'apikey': API_KEY,
+          'Content-Type': 'application/json',
+        },
+        signal: controller.signal
+      }
+    );
 
-function translateRecipesToSpanish(recipes: Recipe[]): Recipe[] {
-  return recipes.map(recipe => ({
-    ...recipe,
-    title: translateRecipeTitle(recipe.title),
-    instructions: translateInstructions(recipe.instructions),
-    imageUrl: recipe.imageUrl || '/placeholder-recipe.jpg'
-  }));
-}
+    clearTimeout(timeoutId);
 
-function translateRecipeTitle(title: string): string {
-  const translations: Record<string, string> = {
-    'cake': 'pastel',
-    'pie': 'pay',
-    'salad': 'ensalada',
-    'soup': 'sopa',
-    'bread': 'pan',
-    'cookie': 'galleta',
-    'chicken': 'pollo',
-    'beef': 'carne',
-    'fish': 'pescado'
-  };
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Error ${response.status}: ${response.statusText}`);
+    }
 
-  return title.split(' ')
-    .map(word => {
-      const baseWord = word.toLowerCase().replace(/[^a-z]/g, '');
-      return translations[baseWord] || word;
-    })
-    .join(' ');
-}
+    const recipe = await response.json();
+    
+    return {
+      id: recipe.id,
+      title: recipe.title,
+      image: recipe.image,
+      servings: recipe.servings,
+      readyInMinutes: recipe.readyInMinutes,
+      sourceUrl: recipe.sourceUrl,
+      summary: recipe.summary,
+      instructions: recipe.instructions,
+      analyzedInstructions: recipe.analyzedInstructions,
+      extendedIngredients: recipe.extendedIngredients,
+      diets: recipe.diets,
+      dishTypes: recipe.dishTypes
+    };
 
-function translateInstructions(instructions: string): string {
-  const translations: Record<string, string> = {
-    'preheat': 'precalentar',
-    'oven': 'horno',
-    'bake': 'hornear',
-    'mix': 'mezclar',
-    'stir': 'revolver',
-    'add': 'añadir',
-    'chop': 'picar',
-    'slice': 'cortar en rodajas',
-    'dice': 'cortar en cubos',
-    'fry': 'freír',
-    'boil': 'hervir',
-    'simmer': 'cocinar a fuego lento',
-    'whisk': 'batir',
-    'knead': 'amasar',
-    'grease': 'engrasar',
-    'season': 'sazonar',
-    'peel': 'pelar',
-    'grate': 'rallar',
-    'blend': 'licuar',
-    'serve': 'servir',
-    'until': 'hasta que',
-    'minutes': 'minutos',
-    'degrees': 'grados'
-  };
-
-  return instructions.split('\n')
-    .map(line => {
-      return line.split(' ')
-        .map(word => {
-          const baseWord = word.toLowerCase().replace(/[^a-z]/g, '');
-          return translations[baseWord] || word;
-        })
-        .join(' ');
-    })
-    .join('\n');
+  } catch (error) {
+    console.error('Error en getRecipeDetails:', error);
+    throw error;
+  }
 }
 
 function getFallbackRecipes(query: string): Recipe[] {
   const fallbackRecipes: Recipe[] = [
     {
+      id: 1,
       title: "Pastel de Chocolate",
-      ingredients: "chocolate|huevos|harina|azúcar|mantequilla",
-      servings: "8 porciones",
-      instructions: "1. Precalentar el horno a 180°C\n2. Mezclar todos los ingredientes\n3. Hornear por 30 minutos",
-      imageUrl: "/placeholder-recipe.jpg"
+      image: "/placeholder-recipe.jpg",
+      servings: 8,
+      readyInMinutes: 45
     },
     {
+      id: 2,
       title: "Ensalada César",
-      ingredients: "lechuga|pollo|crutones|queso parmesano|salsa cesar",
-      servings: "4 porciones",
-      instructions: "1. Mezclar todos los ingredientes\n2. Añadir la salsa al servir",
-      imageUrl: "/placeholder-recipe.jpg"
+      image: "/placeholder-recipe.jpg",
+      servings: 4,
+      readyInMinutes: 20
     }
   ];
 
   return fallbackRecipes.filter(recipe => 
-    recipe.title.toLowerCase().includes(query.toLowerCase()) ||
-    recipe.ingredients.toLowerCase().includes(query.toLowerCase())
+    recipe.title.toLowerCase().includes(query.toLowerCase())
   );
 }
 
-export function parseIngredients(ingredients: string): string[] {
-  return ingredients.split('|')
-    .map(ing => ing.trim())
-    .filter(ing => ing.length > 0);
+export function parseIngredients(ingredients: any[]): string[] {
+  return ingredients.map(ing => ing.original);
 }

@@ -36,9 +36,9 @@ export default function SearchRecipes() {
         ].slice(0, 5);
         return updatedHistory;
       });
-    } catch {
+    } catch (err) {
       setError('Error de conexión. Mostrando recetas de ejemplo...');
-      setRecipes(getFallbackRecipes());
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -69,10 +69,10 @@ export default function SearchRecipes() {
       <section className="container mx-auto px-4">
         <section className="mb-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-            Search <span className="text-amber-500">Recipes</span>
+            Buscar <span className="text-amber-500">Recetas</span>
           </h1>
           <p className="text-lg text-neutral-300 max-w-2xl mx-auto">
-            Discover delicious recipes for any occasion
+            Descubre deliciosas recetas para cualquier ocasión
           </p>
         </section>
         
@@ -85,7 +85,7 @@ export default function SearchRecipes() {
                 setQuery(e.target.value);
                 setError('');
               }}
-              placeholder="Search by recipe name or ingredients (e.g., chicken, pasta, salad)..."
+              placeholder="Buscar por nombre de receta o ingredientes (ej. pollo, pasta, ensalada)..."
               className="flex-1 px-4 py-3 rounded-lg bg-neutral-800 border border-neutral-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
               disabled={loading}
             />
@@ -100,9 +100,9 @@ export default function SearchRecipes() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Searching...
+                  Buscando...
                 </span>
-              ) : 'Search'}
+              ) : 'Buscar'}
             </button>
           </form>
           
@@ -116,7 +116,7 @@ export default function SearchRecipes() {
         {loading ? (
           <section className="text-center py-8">
             <section className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full mx-auto animate-spin"></section>
-            <p className="mt-4 text-neutral-300">Searching recipes...</p>
+            <p className="mt-4 text-neutral-300">Buscando recetas...</p>
           </section>
         ) : error ? (
           <section className="text-center">
@@ -125,8 +125,8 @@ export default function SearchRecipes() {
             </section>
             {recipes.length > 0 && (
               <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {recipes.map((recipe, index) => (
-                  <RecipeCard key={index} recipe={recipe} />
+                {recipes.map((recipe) => (
+                  <RecipeCard key={recipe.id} recipe={recipe} />
                 ))}
               </section>
             )}
@@ -134,18 +134,18 @@ export default function SearchRecipes() {
         ) : recipes.length > 0 ? (
           <>
             <section className="mb-6 text-neutral-300">
-              {recipes.length} recipes found for &quot;{query}&quot;
+              {recipes.length} recetas encontradas para &quot;{query}&quot;
             </section>
             <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {recipes.map((recipe, index) => (
-                <RecipeCard key={index} recipe={recipe} />
+              {recipes.map((recipe) => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
               ))}
             </section>
           </>
         ) : (
           query && (
             <section className="text-center py-8 text-neutral-300">
-              No recipes found for &quot;{query}&quot;
+              No se encontraron recetas para &quot;{query}&quot;
             </section>
           )
         )}
@@ -153,10 +153,10 @@ export default function SearchRecipes() {
         <section className="mt-12">
           <section className="mb-8 text-center">
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              {searchHistory.length > 0 ? 'Your recent searches' : 'Popular searches'}
+              {searchHistory.length > 0 ? 'Tus búsquedas recientes' : 'Búsquedas populares'}
             </h2>
             <p className="text-neutral-300 mb-6">
-              {searchHistory.length > 0 ? 'Try these again or explore new ideas' : 'Discover delicious recipes'}
+              {searchHistory.length > 0 ? 'Prueba estas de nuevo o explora nuevas ideas' : 'Descubre deliciosas recetas'}
             </p>
             <section className="flex flex-wrap justify-center gap-3">
               {searchHistory.length > 0 ? (
@@ -186,8 +186,4 @@ export default function SearchRecipes() {
       </section>
     </main>
   );
-}
-
-function getFallbackRecipes(): Recipe[] {
-  return [];
 }
