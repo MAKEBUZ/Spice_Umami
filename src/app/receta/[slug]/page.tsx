@@ -81,7 +81,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
   const instructions = getInstructions();
 
   return (
-    <main className="min-h-screen bg-neutral-900 text-white pt-12 pb-16">
+    <main className="min-h-screen bg-neutral-900 text-white pt-16 pb-16">
       <section className="container mx-auto px-4">
 
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
