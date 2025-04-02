@@ -25,7 +25,6 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
       aria-label={`Ver receta de ${recipe.title}`}
     >
       <section className="bg-neutral-800 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 h-full flex flex-col border border-neutral-700 group-hover:border-amber-500">
-        {/* Imagen con fallback */}
         <section className="relative h-48 w-full">
           {imageError ? (
             <section className="absolute inset-0 bg-neutral-700 flex items-center justify-center">
@@ -43,7 +42,6 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
             />
           )}
           
-          {/* Botón de favoritos */}
           <button
             onClick={toggleFavorite}
             className="absolute top-2 right-2 p-2 bg-neutral-900/80 rounded-full backdrop-blur-sm hover:bg-amber-500 transition-colors duration-200"
@@ -56,13 +54,11 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
           </button>
         </section>
         
-        {/* Contenido de la tarjeta */}
         <section className="p-6 flex flex-col flex-grow">
           <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-amber-400 transition-colors duration-200">
             {recipe.title}
           </h3>
           
-          {/* Metadatos */}
           <section className="flex items-center gap-4 mb-4 text-sm text-neutral-400">
             <section className="flex items-center gap-1">
               <Users size={16} className="text-amber-400" />
@@ -74,7 +70,6 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
             </section>
           </section>
           
-          {/* Ingredientes */}
           {recipe.extendedIngredients && (
             <section className="mb-4 flex-grow">
               <p className="text-neutral-300 mb-1 text-sm font-medium">
@@ -96,7 +91,6 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
             </section>
           )}
           
-          {/* Botón de acción */}
           <section className="mt-auto">
             <section className="inline-block w-full px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-medium rounded-md transition-colors duration-300 text-center group-hover:shadow-lg group-hover:-translate-y-0.5">
               Ver Receta

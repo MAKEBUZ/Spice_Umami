@@ -41,14 +41,12 @@ const Navbar = () => {
             </section>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             {NAV_ITEMS.filter(item => !item.mobileOnly).map((item) => (
               <NavLink key={item.path} href={item.path}>{item.name}</NavLink>
             ))}
           </nav>
 
-          {/* Mobile Menu Button - Hamburger */}
           <button 
             className="md:hidden relative z-10"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -61,7 +59,6 @@ const Navbar = () => {
         </section>
       </section>
 
-      {/* Mobile Menu */}
       <section className={`fixed inset-0 bg-neutral-900 transition-all duration-300 flex flex-col items-center justify-center ${isMobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
         <nav className="flex flex-col items-center gap-6 text-xl">
           {NAV_ITEMS.map((item) => (
@@ -85,7 +82,6 @@ const Navbar = () => {
   );
 };
 
-// Memoized Components
 const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <Link href={href} className="text-white hover:text-amber-500 transition-colors duration-300">
     {children}

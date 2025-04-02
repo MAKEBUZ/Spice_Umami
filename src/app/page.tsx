@@ -1,6 +1,5 @@
 "use client"
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -17,17 +16,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-neutral-900">
-      {/* Hero Section */}
       <section className="relative h-screen">
-        <section className="absolute inset-0">
-          <Image 
-            src="/hero-bg.jpg" 
-            alt="Spice & Umami hero background" 
-            fill
-            className="object-cover brightness-50"
-            priority
-          />
-        </section>
         
         <section className="relative h-full flex flex-col items-center justify-center px-4 text-center">
           <section className="max-w-4xl mx-auto">
@@ -38,7 +27,6 @@ export default function Home() {
               Tu guía culinaria con información nutricional detallada
             </p>
             
-            {/* Updated Search Bar */}
             <section className="w-full max-w-2xl mx-auto mb-8">
               <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
                 <input
@@ -85,7 +73,6 @@ export default function Home() {
         </section>
       </section>
 
-      {/* Features Section */}
       <section className="py-20 px-4">
         <section className="max-w-6xl mx-auto">
           <section className="text-center mb-16">
@@ -98,7 +85,6 @@ export default function Home() {
           </section>
           
           <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Feature Card 1 */}
             <section className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
               <section className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black">
@@ -111,7 +97,6 @@ export default function Home() {
               </p>
             </section>
             
-            {/* Feature Card 2 */}
             <section className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
               <section className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black">
@@ -124,7 +109,6 @@ export default function Home() {
               </p>
             </section>
             
-            {/* Feature Card 3 */}
             <section className="bg-neutral-800 p-8 rounded-lg hover:bg-neutral-700 transition-colors duration-300 border border-neutral-700">
               <section className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center mb-6 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-black">
@@ -145,7 +129,6 @@ export default function Home() {
         </section>
       </section>
 
-      {/* CTA Section */}
       <section className="py-16 px-4 bg-neutral-800">
         <section className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">

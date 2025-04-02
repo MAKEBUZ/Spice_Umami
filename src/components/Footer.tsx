@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="bg-neutral-950 pt-16 pb-8">
       <section className="container mx-auto px-4">
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Logo and About */}
           <section>
             <section className="flex items-center gap-2 mb-4">
               <section className="relative w-10 h-10">
@@ -31,7 +30,6 @@ const Footer = () => {
             </section>
           </section>
 
-          {/* Links */}
           <section>
             <h3 className="text-white font-semibold text-lg mb-4">Enlaces</h3>
             <ul className="space-y-2">
@@ -43,7 +41,6 @@ const Footer = () => {
             </ul>
           </section>
 
-          {/* APIs */}
           <section>
             <h3 className="text-white font-semibold text-lg mb-4">Tecnologías</h3>
             <ul className="text-gray-400 space-y-2">
@@ -64,7 +61,7 @@ const Footer = () => {
                   <path d="M9.5 12h5"></path>
                   <path d="M9.5 7h5"></path>
                 </svg>
-                <span>API Ninjas (Recetas)</span>
+                <span>Spoonacular (Recetas)</span>
               </li>
               <li className="flex items-start gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-500 flex-shrink-0 mt-1">
@@ -96,7 +93,6 @@ const Footer = () => {
             </ul>
           </section>
 
-          {/* Contact */}
           <section>
             <h3 className="text-white font-semibold text-lg mb-4">Contacto</h3>
             <ul className="text-gray-400 space-y-2">
@@ -138,7 +134,6 @@ const Footer = () => {
   );
 };
 
-// Helper Components (los mismos que antes)
 const SocialIcon = ({ href, icon }: { href: string; icon: string }) => (
   <a 
     href={href} 
